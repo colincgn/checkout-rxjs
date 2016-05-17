@@ -1,0 +1,15 @@
+{
+  "name": "coding-challenge-checkout-application",
+  "version": "1.0.0",
+  "description": "Checkout system that handles different pricing schema's",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "rx": "4.0.6",
+    "rx-node": "1.0.2"
+  },
+  "author": "Colin Nieuwenhuizen",
+  "license": "ISC"
+}
