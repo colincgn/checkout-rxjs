@@ -1,4 +1,5 @@
 const RxNode = require('rx-node');
+const products = require('./config/inventory.js').products;
 
 var userInput = RxNode.fromStream(process.stdin, 'end')
     .map(userInput => userInput.toString().toLowerCase().trim());
@@ -7,10 +8,9 @@ var calculateTotal = userInput.filter(function (userInputString) {
     return userInputString === 'checkout'
 });
 
-const items = ['apple', 'oranges'];
 
 const itemsPurchased = userInput.takeUntil(calculateTotal)
-    .filter(userInputString => items.indexOf(userInputString) > -1)
+    .filter(userInputString => products.indexOf(userInputString) > -1)
     .groupBy(x => x)
     .flatMap((x) => {
       return x.count()
@@ -19,9 +19,12 @@ const itemsPurchased = userInput.takeUntil(calculateTotal)
         })
     })
 
-itemsPurchased.subscribe(obs => console.log(obs),
+function runApp() {
+    itemsPurchased.subscribe(
+        obs => console.log(obs),
         err => console.log('Error: ' + err),
-        () => {
-            console.log('Completed');
-            process.exit();
-        });
+        () => { process.exit()}
+    );
+}
+
+runApp();
